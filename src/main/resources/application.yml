@@ -1,0 +1,43 @@
+server:
+  port: 8089
+spring:
+  aop:
+    auto: true
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url:
+    username: root
+    password: 123456
+    druid:
+      initial-size: 1
+      min-idle: 3
+      max-active: 20
+      max-wait: 60000 #获取连接时最大等待时间，单位毫秒。配置了maxWait之后，缺省启用公平锁，并发效率会有所下降，如果需要可以通过配置useUnfairLock属性为true使用非公平锁。
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: SELECT 1
+      testWhileIdle: true
+      testOnBorrow: true
+      testOnReturn: false
+      poolPreparedStatements: true  #是否缓存preparedStatement，也就是PSCache。PSCache对支持游标的数据库性能提升巨大，比如说oracle。在mysql5.5以下的版本中没有PSCache功能，建议关闭掉。5.5及以上版本有PSCache，建议开启。
+      maxPoolPreparedStatementPerConnectionSize: 20
+      filters: stat,wall  #属性类型是字符串，通过别名的方式配置扩展插件，常用的插件有：监控统计用的filter:stat，日志用的filter:log4j， 防御sql注入的filter:wall
+      connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+mybatis:
+  mapper-locations: classpath:mapper/**/*.xml
+  type-aliases-package: com.yum.oa.entity
+  configuration:
+    cache-enabled: true #使全局的映射器启用或禁用缓存
+    lazy-loading-enabled: true #全局启用或禁用延迟加载。当禁用时，所有关联对象都会即时加载
+    aggressive-lazy-loading: true #当启用时，有延迟加载属性的对象在被调用时将会完全加载任意属性。否则，每种属性将会按需要加载
+    multiple-result-sets-enabled: true #是否允许单条sql 返回多个数据集 (取决于驱动的兼容性)。default:true
+    use-column-label: true #是否可以使用列的别名 (取决于驱动的兼容性) 。default:true
+    use-generated-keys: true #允许JDBC 生成主键。需要驱动器支持。如果设为了true，这个设置将强制使用被生成的主键，有一些驱动器不兼容不过仍然可以执行。 default:false
+    auto-mapping-behavior: partial #指定 MyBatis 如何自动映射 数据基表的列 NONE：不映射；PARTIAL:部分；FULL:全部
+    default-executor-type: simple #默认执行器类型 （SIMPLE: 简单；REUSE: 执行器可能重复使用prepared statements语句；BATCH: 执行器可以重复执行语句和批量更新）
+    map-underscore-to-camel-case: true #使用驼峰命名法转换字段(如果使用该配置，则只需要创建对应的实体类即可；反之需要使用as)
+    local-cache-scope: session #设置本地缓存范围 session:就会有数据的共享 statement:语句范围 (这样就不会有数据的共享 ) defalut:session
+    jdbc-type-for-null: null #设置但JDBC类型为空时,某些驱动程序 要指定值,default:OTHER，插入空值时不需要指定类型
+    call-setters-on-nulls: true #如果数据为空的字段，则该字段省略不显示，可以通过添加配置文件，规定查询数据为空是则返回null。
+
+
