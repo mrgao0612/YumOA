@@ -1,11 +1,11 @@
 server:
-  port: 8089
+  port: 8999
 spring:
   aop:
     auto: true
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url:
+    url: jdbc:mysql://localhost:3306/yumoa?useSSL=false&useUnicode=true&characterEncoding=utf-8&autoReconnect=true&serverTimezone=Asia/Shanghai
     username: root
     password: 123456
     druid:
@@ -23,6 +23,12 @@ spring:
       maxPoolPreparedStatementPerConnectionSize: 20
       filters: stat,wall  #属性类型是字符串，通过别名的方式配置扩展插件，常用的插件有：监控统计用的filter:stat，日志用的filter:log4j， 防御sql注入的filter:wall
       connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+jwt:
+  header: Authorization
+  secret: mySecret
+  expire: 604800
+  tokenStart: "Bearer "
+
 mybatis:
   mapper-locations: classpath:mapper/**/*.xml
   type-aliases-package: com.yum.oa.entity
