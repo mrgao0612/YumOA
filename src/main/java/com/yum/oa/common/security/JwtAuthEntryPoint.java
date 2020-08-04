@@ -18,7 +18,7 @@ import java.io.PrintWriter;
  * @create: 2020-08-04
  * @version: v2.0
  **/
-@Component
+@Component("JwtAuthEntryPoint")
 public class JwtAuthEntryPoint implements AuthenticationEntryPoint {
 
     @Override

@@ -18,7 +18,7 @@ import java.io.PrintWriter;
  * @create: 2020-08-04
  * @version: v2.0
  **/
-@Component
+@Component("WebAuthAccessDeniedHandler")
 public class WebAuthAccessDeniedHandler implements AccessDeniedHandler {
     @Override
     public void handle(HttpServletRequest request,

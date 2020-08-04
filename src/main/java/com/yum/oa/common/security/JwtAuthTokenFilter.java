@@ -33,9 +33,11 @@ public class JwtAuthTokenFilter extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
         String authToken = request.getHeader(header);
-        if (!StringUtils.isEmpty(authToken) && authToken.startsWith(tokenStart))
+        if (!StringUtils.isEmpty(authToken) && authToken.startsWith(tokenStart)) {
             authToken = authToken.substring(tokenStart.length());
-        else authToken = null;
+        } else {
+            authToken = null;
+        }
 
         JwtUser user = JwtUtil.getUserFromToken(authToken);
         if (user != null && SecurityContextHolder.getContext().getAuthentication() == null) {
