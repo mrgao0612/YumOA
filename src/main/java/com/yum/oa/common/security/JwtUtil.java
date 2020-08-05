@@ -5,56 +5,59 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.Map;
 import java.util.UUID;
 
 /**
  * @description
  * @author: gaoyu
  * @create: 2020-08-04
- * @version: v2.0
+ * @version: 0.0.1
  **/
+@Component
 public class JwtUtil {
     @Value("${jwt.secret}")
-    private static String secret;
+    private String secret;
     @Value("${jwt.expire}")
-    private static long expire;
+    private long expire;
     private static final SignatureAlgorithm SIGNATURE_ALGORITHM = SignatureAlgorithm.HS256;
 
-    public static JwtUser getUserFromToken(String token) {
+    public JwtUser getUserFromToken(String token) {
         Claims claims = getClaimsFromToken(token);
         return JSON.parseObject(JSON.toJSONString(claims), JwtUser.class);
     }
 
-    public static String generateAccessToken(JwtUser user) {
+    public String generateAccessToken(JwtUser user) {
         return generateToken(user);
     }
 
-    public static boolean validateToken(String token, JwtUser user) {
+    public boolean validateToken(String token, JwtUser user) {
         Claims claims = getClaimsFromToken(token);
-        return user.getUserId() == claims.get("userId")
+        return user.getUserId() == Long.parseLong(claims.get("userId").toString())
                 && user.getUsername().equals(claims.get("userName"))
                 && isTokenExpired(token);
     }
 
-    public static String refreshAccessToken(String token) {
+    public String refreshAccessToken(String token) {
         Claims claims = getClaimsFromToken(token);
         return generateToken(claims, expire);
     }
 
-    private static Claims getClaimsFromToken(String token) {
+    private Claims getClaimsFromToken(String token) {
         return Jwts.parser()
                 .setSigningKey(secret)
                 .parseClaimsJws(token)
                 .getBody();
     }
 
-    private static String generateToken(JwtUser user) {
-        return generateToken(JSON.parseObject(JSON.toJSONString(user), Claims.class), expire);
+    private String generateToken(JwtUser user) {
+        return generateToken(JSON.parseObject(JSON.toJSONString(user)), expire);
     }
 
-    private static String generateToken(Claims claims, long expire) {
+    private String generateToken(Map<String, Object> claims, long expire) {
         return Jwts.builder()
                 .setClaims(claims)
                 .setId(UUID.randomUUID().toString())
@@ -64,15 +67,15 @@ public class JwtUtil {
                 .compact();
     }
 
-    private static Date generateExpireTime(long expire) {
+    private Date generateExpireTime(long expire) {
         return new Date(System.currentTimeMillis() + (expire * 1000));
     }
 
-    private static boolean isTokenExpired(String token) {
+    private boolean isTokenExpired(String token) {
         return getExpiredTimeOfToken(token).before(new Date());
     }
 
-    private static Date getExpiredTimeOfToken(String token) {
+    private Date getExpiredTimeOfToken(String token) {
         return getClaimsFromToken(token).getExpiration();
     }
 }

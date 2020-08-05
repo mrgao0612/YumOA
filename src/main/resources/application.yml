@@ -23,11 +23,27 @@ spring:
       maxPoolPreparedStatementPerConnectionSize: 20
       filters: stat,wall  #属性类型是字符串，通过别名的方式配置扩展插件，常用的插件有：监控统计用的filter:stat，日志用的filter:log4j， 防御sql注入的filter:wall
       connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+  redis:
+    database: 0
+    host: localhost
+    port: 6379
+    password:
+    jedis:
+      pool:
+        max-active: -1
+        max-idle: 8
+        max-wait: -1
+        min-idle: 0
+    timeout: 1000
+
 jwt:
   header: Authorization
   secret: mySecret
   expire: 604800
   tokenStart: "Bearer "
+
+swagger:
+  enable: true
 
 mybatis:
   mapper-locations: classpath:mapper/**/*.xml

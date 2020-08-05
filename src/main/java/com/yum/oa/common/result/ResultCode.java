@@ -5,7 +5,7 @@ package com.yum.oa.common.result;
  * @description
  * @author: gaoyu
  * @create: 2020-08-04
- * @version: v2.0
+ * @version: 0.0.1
  **/
 public enum ResultCode {
     OK(200, "请求成功"),

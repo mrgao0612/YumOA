@@ -16,7 +16,7 @@ import java.io.PrintWriter;
  * @description
  * @author: gaoyu
  * @create: 2020-08-04
- * @version: v2.0
+ * @version: 0.0.1
  **/
 @Component("WebAuthAccessDeniedHandler")
 public class WebAuthAccessDeniedHandler implements AccessDeniedHandler {

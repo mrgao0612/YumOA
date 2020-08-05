@@ -7,7 +7,7 @@ import com.alibaba.fastjson.JSON;
  * @description
  * @author: gaoyu
  * @create: 2020-08-04
- * @version: v2.0
+ * @version: 0.0.1
  **/
 public class ResultBean<T> {
     private int code;

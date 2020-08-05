@@ -1,5 +1,6 @@
 package com.yum.oa.common.security;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -25,7 +26,7 @@ import javax.annotation.Resource;
  * @description
  * @author: gaoyu
  * @create: 2020-08-04
- * @version: v2.0
+ * @version: 0.0.1
  **/
 @Configuration
 @EnableWebSecurity
@@ -34,10 +35,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Resource
     private JwtAuthTokenFilter jwtAuthTokenFilter;
+    @Qualifier(value = "JwtAuthEntryPoint")
     @Resource
     private AuthenticationEntryPoint authEntryPoint;
+    @Qualifier(value = "WebAuthAccessDeniedHandler")
     @Resource
     private AccessDeniedHandler accessDeniedHandler;
+    @Qualifier(value = "CustomUserDetailsService")
     @Resource
     private UserDetailsService userDetailsService;
 
@@ -62,7 +66,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
                 // 允许匿名访问的接口
-                .antMatchers("/api/oa/login", "/api/oa/signout", "/error/**").permitAll()
+                .antMatchers("/api/login", "/api/signout", "/error/**").permitAll()
                 // 阻止POST预检请求
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 // 除上面的接口都需要验证
@@ -75,11 +79,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) {
-        web.ignoring().antMatchers("/api/oa/api-docs",
-                "/swagger-resources/configuration/ui",
-                "/swagger-resources",
-                "/swagger-resources/configuration/security",
-                "swagger-ui.html");
+        web.ignoring().antMatchers(
+                HttpMethod.GET,
+                "/v2/api-docs",//swagger api json
+                "/swagger-resources/configuration/ui",//用来获取支持的动作
+                "/swagger-resources",//用来获取api-docs的URI
+                "/swagger-resources/configuration/security",//安全选项
+                "/swagger-ui.html");
     }
 
     @Bean

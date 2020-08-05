@@ -11,7 +11,7 @@ import java.util.Collection;
  * @description
  * @author: gaoyu
  * @create: 2020-08-04
- * @version: v2.0
+ * @version: 0.0.1
  **/
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class JwtUser implements UserDetails {

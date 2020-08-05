@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
  * @Description
  * @Author mrgao0612@gmail.com
  * @Date 2020/8/4 20:50
- * @Version V1.0.0
+ * @Version 0.0.1
  **/
 @Component("CustomUserDetailsService")
 public class CustomUserDetailsService implements UserDetailsService {
