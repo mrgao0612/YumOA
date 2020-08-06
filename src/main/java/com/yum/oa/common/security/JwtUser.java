@@ -1,10 +1,9 @@
 package com.yum.oa.common.security;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
+import java.util.Set;
 
 /**
  * Jwt认证用户
@@ -15,12 +14,12 @@ import java.util.Collection;
  **/
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class JwtUser implements UserDetails {
-    private long userId;
-    private String userName;
-    private String password;
-    private Collection<? extends GrantedAuthority> authorities;
+    private final long userId;
+    private final String userName;
+    private final String password;
+    private final Set<Authority> authorities;
 
-    public JwtUser(long userId, String userName, String password, Collection<? extends GrantedAuthority> authorities) {
+    public JwtUser(long userId, String userName, String password, Set<Authority> authorities) {
         this.userId = userId;
         this.userName = userName;
         this.password = password;
@@ -32,7 +31,7 @@ public class JwtUser implements UserDetails {
     }
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
+    public Set<Authority> getAuthorities() {
         return this.authorities;
     }
 

@@ -82,6 +82,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers(
                 HttpMethod.GET,
                 "/v2/api-docs",//swagger api json
+                "/webjars/**",
                 "/swagger-resources/configuration/ui",//用来获取支持的动作
                 "/swagger-resources",//用来获取api-docs的URI
                 "/swagger-resources/configuration/security",//安全选项

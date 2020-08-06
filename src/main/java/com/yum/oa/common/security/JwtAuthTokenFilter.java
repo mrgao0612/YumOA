@@ -1,5 +1,9 @@
 package com.yum.oa.common.security;
 
+import com.yum.oa.common.exception.ExpirationTokenException;
+import com.yum.oa.common.exception.InvalidTokenException;
+import com.yum.oa.common.redis.RedisKeyGenerator;
+import com.yum.oa.common.redis.RedisUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -30,9 +34,12 @@ public class JwtAuthTokenFilter extends OncePerRequestFilter {
 
     @Resource
     private JwtUtil jwtUtil;
+    @Resource
+    private RedisUtil redisUtil;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
+                                    FilterChain filterChain) throws ServletException, IOException {
         String authToken = request.getHeader(header);
         JwtUser user;
         if (!StringUtils.isEmpty(authToken) && authToken.startsWith(tokenStart)) {
@@ -40,12 +47,17 @@ public class JwtAuthTokenFilter extends OncePerRequestFilter {
             user = jwtUtil.getUserFromToken(authToken);
 
             if (user != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                if (jwtUtil.validateToken(authToken, user)) {
-                    UsernamePasswordAuthenticationToken authentication =
-                            new UsernamePasswordAuthenticationToken(user, user.getAuthorities());
-                    authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                    SecurityContextHolder.getContext().setAuthentication(authentication);
+                String cacheToken = redisUtil.get(RedisKeyGenerator.getUserToken(user.getUserId()));
+                if (StringUtils.isEmpty(cacheToken) || !cacheToken.equals((tokenStart + authToken))) {
+                    throw new InvalidTokenException("无效的token");
                 }
+                if (jwtUtil.isTokenExpired(authToken)) {
+                    throw new ExpirationTokenException("token已过期");
+                }
+                UsernamePasswordAuthenticationToken authentication =
+                        new UsernamePasswordAuthenticationToken(user, authToken, user.getAuthorities());
+                authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         }
 

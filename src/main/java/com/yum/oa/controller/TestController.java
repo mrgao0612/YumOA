@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api")
 public class TestController {
-    private static Logger logger = LoggerFactory.getLogger(TestController.class);
+    private static final Logger logger = LoggerFactory.getLogger(TestController.class);
     @PostMapping("login")
     public ResultBean<?> login() {
         logger.info("请求成功");

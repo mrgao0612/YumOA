@@ -34,7 +34,8 @@ public class RedisConfig {
                 ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.WRAPPER_ARRAY);
         jsonRedisSerializer.setObjectMapper(objectMapper);
         StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
-        redisTemplate.setStringSerializer(stringRedisSerializer);
+        redisTemplate.setKeySerializer(stringRedisSerializer);
+        redisTemplate.setValueSerializer(jsonRedisSerializer);
         redisTemplate.setHashKeySerializer(stringRedisSerializer);
         redisTemplate.setHashValueSerializer(jsonRedisSerializer);
         redisTemplate.afterPropertiesSet();

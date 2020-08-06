@@ -37,13 +37,17 @@ public class JwtUtil {
     public boolean validateToken(String token, JwtUser user) {
         Claims claims = getClaimsFromToken(token);
         return user.getUserId() == Long.parseLong(claims.get("userId").toString())
-                && user.getUsername().equals(claims.get("userName"))
-                && isTokenExpired(token);
+                && user.getUsername().equals(claims.get("username").toString())
+                && !isTokenExpired(token);
     }
 
     public String refreshAccessToken(String token) {
         Claims claims = getClaimsFromToken(token);
         return generateToken(claims, expire);
+    }
+
+    public boolean isTokenExpired(String token) {
+        return getExpiredTimeOfToken(token).before(new Date());
     }
 
     private Claims getClaimsFromToken(String token) {
@@ -69,10 +73,6 @@ public class JwtUtil {
 
     private Date generateExpireTime(long expire) {
         return new Date(System.currentTimeMillis() + (expire * 1000));
-    }
-
-    private boolean isTokenExpired(String token) {
-        return getExpiredTimeOfToken(token).before(new Date());
     }
 
     private Date getExpiredTimeOfToken(String token) {
