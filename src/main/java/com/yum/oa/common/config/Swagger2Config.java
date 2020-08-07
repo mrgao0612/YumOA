@@ -1,4 +1,4 @@
-package com.yum.oa.common.swagger;
+package com.yum.oa.common.config;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;

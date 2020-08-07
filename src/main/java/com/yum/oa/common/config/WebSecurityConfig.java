@@ -1,5 +1,6 @@
-package com.yum.oa.common.security;
+package com.yum.oa.common.config;
 
+import com.yum.oa.common.security.JwtAuthTokenFilter;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

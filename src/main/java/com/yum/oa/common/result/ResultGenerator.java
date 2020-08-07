@@ -13,6 +13,11 @@ public class ResultGenerator {
         return new ResultBean<>(ResultCode.OK.getCode(), ResultCode.OK.getMsg(), data);
     }
 
+    public static ResultBean<?> failed() {
+        ResultCode resultCode = ResultCode.EXPECTATION_FAILED;
+        return new ResultBean<>(resultCode.getCode(), resultCode.getMsg(), null);
+    }
+
     public static ResultBean<?> failed(String msg) {
         return new ResultBean<>(ResultCode.EXPECTATION_FAILED.getCode(), msg, null);
     }
