@@ -5,10 +5,7 @@ import com.yum.oa.entity.UserEntity;
 import com.yum.oa.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -31,7 +28,8 @@ public class UserController {
         return userService.saveUser(userEntity);
     }
 
-    @ApiOperation("")
+    @GetMapping("list")
+    @ApiOperation("用户列表")
     public ResultBean<?> list(Object param) {
         return userService.findPageList(param);
     }
