@@ -1,13 +1,15 @@
-package com.yum.oa.controller;
+package com.yum.oa.controller.user;
 
+import com.github.pagehelper.PageInfo;
 import com.yum.oa.common.result.ResultBean;
-import com.yum.oa.entity.UserEntity;
+import com.yum.oa.model.entity.UserEntity;
 import com.yum.oa.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 
 /**
  * @description
@@ -24,13 +26,13 @@ public class UserController {
 
     @PostMapping("insert")
     @ApiOperation("新增用户")
-    public ResultBean<?> insert(@RequestBody UserEntity userEntity) {
+    public ResultBean<?> insert(@Valid @RequestBody UserEntity userEntity) {
         return userService.saveUser(userEntity);
     }
 
     @GetMapping("list")
     @ApiOperation("用户列表")
-    public ResultBean<?> list(Object param) {
+    public ResultBean<PageInfo<UserEntity>> list(Object param) {
         return userService.findPageList(param);
     }
 }

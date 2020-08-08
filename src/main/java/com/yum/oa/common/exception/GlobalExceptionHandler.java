@@ -1,13 +1,13 @@
 package com.yum.oa.common.exception;
 
 import com.yum.oa.common.result.ResultBean;
+import com.yum.oa.common.result.ResultCode;
 import com.yum.oa.common.result.ResultGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * 统一异常处理
@@ -25,6 +25,12 @@ public class GlobalExceptionHandler {
     public ResultBean<?> nullPointerExceptionHandler(NullPointerException e) {
         logger.error("请求接口异常，原因：", e);
         return ResultGenerator.failed();
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResultBean<?> MethodArgumentNotValidExceptionHandler(MethodArgumentNotValidException e) {
+        logger.error("请求参数验证异常，原因：", e);
+        return ResultGenerator.failed(ResultCode.BAD_REQUEST, e.getBindingResult().getAllErrors().get(0).getDefaultMessage());
     }
 
 }

@@ -1,13 +1,15 @@
 package com.yum.oa.service.impl;
 
+import com.github.pagehelper.PageInfo;
 import com.yum.oa.common.base.BaseService;
 import com.yum.oa.common.result.ResultBean;
 import com.yum.oa.common.result.ResultGenerator;
-import com.yum.oa.entity.UserEntity;
+import com.yum.oa.model.entity.UserEntity;
 import com.yum.oa.mapper.UserEntityMapper;
 import com.yum.oa.service.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  * @description
@@ -20,7 +22,7 @@ public class UserServiceImpl extends BaseService<UserEntityMapper, UserEntity> i
 
     @Transactional
     @Override
-    public ResultBean<?> saveUser(UserEntity entity) {
+    public ResultBean<?> saveUser(@RequestBody UserEntity entity) {
         if (super.save(entity) > 0) {
             return ResultGenerator.success(entity);
         }
@@ -28,7 +30,7 @@ public class UserServiceImpl extends BaseService<UserEntityMapper, UserEntity> i
     }
 
     @Override
-    public ResultBean<?> findPageList(Object param) {
+    public ResultBean<PageInfo<UserEntity>> findPageList(Object param) {
         return ResultGenerator.success(super.findPageList());
     }
 

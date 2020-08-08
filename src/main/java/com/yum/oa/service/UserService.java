@@ -1,7 +1,8 @@
 package com.yum.oa.service;
 
+import com.github.pagehelper.PageInfo;
 import com.yum.oa.common.result.ResultBean;
-import com.yum.oa.entity.UserEntity;
+import com.yum.oa.model.entity.UserEntity;
 
 /**
  * @description
@@ -13,5 +14,5 @@ public interface UserService {
 
     ResultBean<?> saveUser(UserEntity userEntity);
 
-    ResultBean<?> findPageList(Object param);
+    ResultBean<PageInfo<UserEntity>> findPageList(Object param);
 }
