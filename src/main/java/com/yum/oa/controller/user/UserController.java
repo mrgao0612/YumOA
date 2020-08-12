@@ -3,7 +3,7 @@ package com.yum.oa.controller.user;
 import com.github.pagehelper.PageInfo;
 import com.yum.oa.common.result.ResultBean;
 import com.yum.oa.model.entity.UserEntity;
-import com.yum.oa.service.UserService;
+import com.yum.oa.service.user.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;

@@ -1,6 +1,7 @@
 package com.yum.oa.common.security;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Set;
@@ -24,6 +25,30 @@ public class JwtUser implements UserDetails {
         this.userName = userName;
         this.password = password;
         this.authorities = authorities;
+    }
+
+    /**
+     * 用户权限
+     * @description
+     * @author: gaoyu
+     * @create: 2020-08-06
+     * @version: 0.0.1
+     **/
+    public static class Authority implements GrantedAuthority {
+        private final String authority;
+
+        private Authority(String authority) {
+            this.authority = authority;
+        }
+
+        public static Authority getInstance(String authority) {
+            return new Authority(authority);
+        }
+
+        @Override
+        public String getAuthority() {
+            return authority;
+        }
     }
 
     public long getUserId() {

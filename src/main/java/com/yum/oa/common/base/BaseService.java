@@ -16,7 +16,7 @@ import java.util.List;
 @Service
 public abstract class BaseService<T extends BaseEntityMapper<E>, E extends BaseEntity> {
     @Resource
-    private T t;
+    protected T t;
 
     protected E getOne(Long id) {
         return t.selectByPrimaryKey(id);

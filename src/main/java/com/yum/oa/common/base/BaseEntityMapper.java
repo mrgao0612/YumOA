@@ -13,9 +13,9 @@ public interface BaseEntityMapper<E extends BaseEntity> {
 
     E selectByPrimaryKey(Long id);
 
-    List<E> findList();
-
     int insertSelective(E entity);
 
     int updateByPrimaryKeySelective(E entity);
+
+    List<E> findList();
 }

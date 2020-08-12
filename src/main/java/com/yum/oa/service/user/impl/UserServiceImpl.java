@@ -1,4 +1,4 @@
-package com.yum.oa.service.impl;
+package com.yum.oa.service.user.impl;
 
 import com.github.pagehelper.PageInfo;
 import com.yum.oa.common.base.BaseService;
@@ -6,7 +6,7 @@ import com.yum.oa.common.result.ResultBean;
 import com.yum.oa.common.result.ResultGenerator;
 import com.yum.oa.model.entity.UserEntity;
 import com.yum.oa.mapper.UserEntityMapper;
-import com.yum.oa.service.UserService;
+import com.yum.oa.service.user.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @version: v2.0
  **/
 @Service
-public class UserServiceImpl extends BaseService<UserEntityMapper, UserEntity> implements UserService  {
+public class UserServiceImpl extends BaseService<UserEntityMapper, UserEntity> implements UserService {
 
     @Transactional
     @Override
@@ -32,6 +32,11 @@ public class UserServiceImpl extends BaseService<UserEntityMapper, UserEntity> i
     @Override
     public ResultBean<PageInfo<UserEntity>> findPageList(Object param) {
         return ResultGenerator.success(super.findPageList());
+    }
+
+    @Override
+    public UserEntity getUserInfoByMobile(String mobile) {
+        return t.getUserInfoByMobile(mobile);
     }
 
 }
