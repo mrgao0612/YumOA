@@ -6,6 +6,7 @@ import com.yum.oa.model.vo.LoginInVo;
 import com.yum.oa.service.login.LoginService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.BeanUtils;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,7 +29,7 @@ public class LoginController {
     @Resource
     private LoginService loginService;
 
-    @RequestMapping("login")
+    @PostMapping("login")
     public ResultBean<?> login(@Valid @RequestBody LoginInVo param) {
         LoginDto loginDto = new LoginDto();
         BeanUtils.copyProperties(param, loginDto);

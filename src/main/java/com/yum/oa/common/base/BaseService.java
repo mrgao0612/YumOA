@@ -2,9 +2,6 @@ package com.yum.oa.common.base;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import org.springframework.stereotype.Service;
-
-import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -13,10 +10,12 @@ import java.util.List;
  * @create: 2020-08-07
  * @version: 0.0.1
  **/
-@Service
 public abstract class BaseService<T extends BaseEntityMapper<E>, E extends BaseEntity> {
-    @Resource
-    protected T t;
+    private final T t;
+
+    protected BaseService(T t) {
+        this.t = t;
+    }
 
     protected E getOne(Long id) {
         return t.selectByPrimaryKey(id);

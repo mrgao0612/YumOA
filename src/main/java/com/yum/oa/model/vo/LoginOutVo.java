@@ -21,9 +21,11 @@ public class LoginOutVo {
     private String username;
     @ApiModelProperty(value = "手机号")
     private String mobile;
+    @ApiModelProperty(value = "用户头像")
+    private String avatar;
     @ApiModelProperty(value = "权限列表")
     private Set<String> authorities = new HashSet<>();
-    @ApiModelProperty(value = "请求令牌")
+    @ApiModelProperty(value = "请求身份令牌")
     private String token;
 
     public Long getId() {
@@ -48,6 +50,14 @@ public class LoginOutVo {
 
     public void setMobile(String mobile) {
         this.mobile = mobile;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public Set<String> getAuthorities() {

@@ -4,6 +4,7 @@ import com.yum.oa.common.redis.RedisKeyGenerator;
 import com.yum.oa.common.redis.RedisUtil;
 import com.yum.oa.common.result.ResultBean;
 import com.yum.oa.common.result.ResultGenerator;
+import com.yum.oa.common.security.Authority;
 import com.yum.oa.common.security.JwtUser;
 import com.yum.oa.common.security.JwtUtil;
 import com.yum.oa.model.dto.LoginDto;
@@ -12,6 +13,7 @@ import com.yum.oa.model.vo.LoginOutVo;
 import com.yum.oa.service.login.LoginService;
 import com.yum.oa.service.user.UserService;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -33,6 +35,9 @@ public class LoginServiceImpl implements LoginService {
     @Resource
     private RedisUtil redisUtil;
 
+    @Value(value = "${jwt.tokenStart}")
+    private String tokenStart;
+
     @Override
     public ResultBean<?> login(LoginDto param) {
         UserEntity userInfo = userService.getUserInfoByMobile(param.getMobile());
@@ -40,12 +45,12 @@ public class LoginServiceImpl implements LoginService {
             return ResultGenerator.failed("账号或密码不正确");
         }
         JwtUser jwtUser = new JwtUser(userInfo.getId(), userInfo.getUsername(),
-                userInfo.getPassword(), Collections.singleton(JwtUser.Authority.getInstance("All")));
-        String token = jwtUtil.generateAccessToken(jwtUser);
+                userInfo.getPassword(), Collections.singleton(Authority.getInstance("All")));
+        String token = tokenStart + jwtUtil.generateAccessToken(jwtUser);
         LoginOutVo result = new LoginOutVo();
         BeanUtils.copyProperties(userInfo, result);
         result.setAuthorities(jwtUser.getAuthorities().stream()
-                .map(JwtUser.Authority::getAuthority)
+                .map(Authority::getAuthority)
                 .collect(Collectors.toSet()));
         result.setToken(token);
         redisUtil.set(RedisKeyGenerator.getUserToken(userInfo.getId()), token);

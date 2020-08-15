@@ -2,6 +2,7 @@ package com.yum.oa;
 
 import com.yum.oa.common.redis.RedisKeyGenerator;
 import com.yum.oa.common.redis.RedisUtil;
+import com.yum.oa.common.security.Authority;
 import com.yum.oa.common.security.JwtUser;
 import com.yum.oa.common.security.JwtUtil;
 import org.junit.jupiter.api.Test;
@@ -23,7 +24,7 @@ class YumOaApplicationTests {
     @Test
     void contextLoads() {
         JwtUser user = new JwtUser(1, "张三", "123456",
-                Collections.singleton(JwtUser.Authority.getInstance("ALL")));
+                Collections.singleton(Authority.getInstance("ALL")));
         String token = start + jwtUtil.generateAccessToken(user);
         redisUtil.set(RedisKeyGenerator.getUserToken(1L), token);
     }

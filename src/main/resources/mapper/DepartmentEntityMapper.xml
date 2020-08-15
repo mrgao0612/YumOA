@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yum.oa.mapper.DepartmentEntityMapper">
+  <resultMap id="BaseResultMap" type="com.yum.oa.model.entity.DepartmentEntity">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="dept_code" jdbcType="INTEGER" property="deptCode" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="parent_id" jdbcType="BIGINT" property="parentId" />
+    <result column="dept_num" jdbcType="INTEGER" property="deptNum" />
+    <result column="creator_id" jdbcType="BIGINT" property="creatorId" />
+    <result column="created_date" jdbcType="TIMESTAMP" property="createdDate" />
+    <result column="modifier_id" jdbcType="BIGINT" property="modifierId" />
+    <result column="modified_date" jdbcType="TIMESTAMP" property="modifiedDate" />
+    <result column="is_delete" jdbcType="BIT" property="isDelete" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, dept_code, dept_name, parent_id, dept_num, creator_id, created_date, modifier_id,
+    modified_date, is_delete
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from yum_department
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <insert id="insertSelective" parameterType="com.yum.oa.model.entity.DepartmentEntity">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into yum_department
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="deptCode != null">
+        dept_code,
+      </if>
+      <if test="deptName != null">
+        dept_name,
+      </if>
+      <if test="parentId != null">
+        parent_id,
+      </if>
+      <if test="deptNum != null">
+        dept_num,
+      </if>
+      <if test="creatorId != null">
+        creator_id,
+      </if>
+      <if test="createdDate != null">
+        created_date,
+      </if>
+      <if test="modifierId != null">
+        modifier_id,
+      </if>
+      <if test="modifiedDate != null">
+        modified_date,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="deptCode != null">
+        #{deptCode,jdbcType=INTEGER},
+      </if>
+      <if test="deptName != null">
+        #{deptName,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null">
+        #{parentId,jdbcType=BIGINT},
+      </if>
+      <if test="deptNum != null">
+        #{deptNum,jdbcType=INTEGER},
+      </if>
+      <if test="creatorId != null">
+        #{creatorId,jdbcType=BIGINT},
+      </if>
+      <if test="createdDate != null">
+        #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifierId != null">
+        #{modifierId,jdbcType=BIGINT},
+      </if>
+      <if test="modifiedDate != null">
+        #{modifiedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yum.oa.model.entity.DepartmentEntity">
+    update yum_department
+    <set>
+      <if test="deptCode != null">
+        dept_code = #{deptCode,jdbcType=INTEGER},
+      </if>
+      <if test="deptName != null">
+        dept_name = #{deptName,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null">
+        parent_id = #{parentId,jdbcType=BIGINT},
+      </if>
+      <if test="deptNum != null">
+        dept_num = #{deptNum,jdbcType=INTEGER},
+      </if>
+      <if test="creatorId != null">
+        creator_id = #{creatorId,jdbcType=BIGINT},
+      </if>
+      <if test="createdDate != null">
+        created_date = #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifierId != null">
+        modifier_id = #{modifierId,jdbcType=BIGINT},
+      </if>
+      <if test="modifiedDate != null">
+        modified_date = #{modifiedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="findList" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" /> from yum_department
+  </select>
+</mapper>

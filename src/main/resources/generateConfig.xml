@@ -31,7 +31,7 @@
             <property name="forceBigDecimals" value="true"/>
             <property name="useJSR310Types" value="true"/>
         </javaTypeResolver>
-        <javaModelGenerator targetPackage="com.yum.oa.entity"
+        <javaModelGenerator targetPackage="com.yum.oa.model.entity"
                             targetProject="src/main/java">
             <property name="trimStrings" value="true"/>
             <property name="enableSubPackages" value="true"/>
@@ -45,6 +45,24 @@
         </javaClientGenerator>
 
         <table domainObjectName="UserEntity" tableName="yum_user"
+               enableDeleteByExample="false" enableDeleteByPrimaryKey="false"
+               enableSelectByExample="false" enableCountByExample="false"
+               enableUpdateByExample="false">
+            <generatedKey column="id" identity="true" sqlStatement="MySql"/>
+        </table>
+        <table domainObjectName="DepartmentEntity" tableName="yum_department"
+               enableDeleteByExample="false" enableDeleteByPrimaryKey="false"
+               enableSelectByExample="false" enableCountByExample="false"
+               enableUpdateByExample="false">
+            <generatedKey column="id" identity="true" sqlStatement="MySql"/>
+        </table>
+        <table domainObjectName="RoleEntity" tableName="yum_role"
+               enableDeleteByExample="false" enableDeleteByPrimaryKey="false"
+               enableSelectByExample="false" enableCountByExample="false"
+               enableUpdateByExample="false">
+            <generatedKey column="id" identity="true" sqlStatement="MySql"/>
+        </table>
+        <table domainObjectName="MenuEntity" tableName="yum_menu"
                enableDeleteByExample="false" enableDeleteByPrimaryKey="false"
                enableSelectByExample="false" enableCountByExample="false"
                enableUpdateByExample="false">

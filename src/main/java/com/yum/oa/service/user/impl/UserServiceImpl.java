@@ -4,21 +4,31 @@ import com.github.pagehelper.PageInfo;
 import com.yum.oa.common.base.BaseService;
 import com.yum.oa.common.result.ResultBean;
 import com.yum.oa.common.result.ResultGenerator;
-import com.yum.oa.model.entity.UserEntity;
 import com.yum.oa.mapper.UserEntityMapper;
+import com.yum.oa.model.entity.UserEntity;
 import com.yum.oa.service.user.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import javax.annotation.Resource;
+
 /**
+ * 用户业务实现类
  * @description
  * @author: gaoyu
  * @create: 2020-08-07
- * @version: v2.0
+ * @version: 0.0.1
  **/
 @Service
 public class UserServiceImpl extends BaseService<UserEntityMapper, UserEntity> implements UserService {
+
+    @Resource
+    private UserEntityMapper userEntityMapper;
+
+    protected UserServiceImpl(UserEntityMapper userEntityMapper) {
+        super(userEntityMapper);
+    }
 
     @Transactional
     @Override
@@ -36,7 +46,7 @@ public class UserServiceImpl extends BaseService<UserEntityMapper, UserEntity> i
 
     @Override
     public UserEntity getUserInfoByMobile(String mobile) {
-        return t.getUserInfoByMobile(mobile);
+        return userEntityMapper.getUserInfoByMobile(mobile);
     }
 
 }

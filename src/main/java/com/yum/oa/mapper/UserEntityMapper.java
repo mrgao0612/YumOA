@@ -6,6 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserEntityMapper extends BaseEntityMapper<UserEntity> {
-
     UserEntity getUserInfoByMobile(String mobile);
 }
