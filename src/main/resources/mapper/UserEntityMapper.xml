@@ -178,4 +178,8 @@
   <select id="getUserInfoByMobile" resultMap="BaseResultMap">
     select <include refid="Base_Column_List" /> from yum_user where mobile = #{mobile}
   </select>
+
+  <delete id="deleteById">
+    delete from yum_user where id = #{id}
+  </delete>
 </mapper>

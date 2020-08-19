@@ -19,13 +19,24 @@
     id, menu_code, menu_name, path, parent_id, icon, disabled, creator_id, created_date,
     modifier_id, modified_date, is_delete
   </sql>
+
+  <resultMap id="NavListMap" type="com.yum.oa.model.vo.NavOutVo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="menu_name" jdbcType="VARCHAR" property="menuName" />
+    <result column="path" jdbcType="VARCHAR" property="path" />
+    <result column="parent_id" jdbcType="BIGINT" property="parentId" />
+    <result column="icon" jdbcType="VARCHAR" property="icon" />
+    <result column="disabled" jdbcType="BIT" property="disabled" />
+    <collection property="childNavList" fetchType="eager" ofType="com.yum.oa.model.vo.NavOutVo" column="id" select="findNavByParentId"/>
+  </resultMap>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from yum_menu
     where id = #{id,jdbcType=BIGINT}
   </select>
-  <insert id="insertSelective" parameterType="com.yum.oa.model.entity.MenuEntity">
+  <insert id="insertSelective" parameterType="com.yum.oa.model.entity.MenuEntity" useGeneratedKeys="true" keyProperty="id">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -143,5 +154,13 @@
 
   <select id="findList" resultMap="BaseResultMap">
     select <include refid="Base_Column_List" /> from yum_menu
+  </select>
+
+  <select id="findNavList" resultMap="NavListMap">
+    select id, menu_name, parent_id, path, icon, disabled from yum_menu where parent_id = 0 and is_delete = 0 order by id asc
+  </select>
+
+  <select id="findNavByParentId" resultType="com.yum.oa.model.vo.NavOutVo">
+    select id, menu_name, parent_id, path, icon, disabled from yum_menu where parent_id = #{id} order by id asc
   </select>
 </mapper>

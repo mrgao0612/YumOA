@@ -67,7 +67,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
                 // 允许匿名访问的接口
-                .antMatchers("/api/login", "/api/signout", "/error/**").permitAll()
+                .antMatchers("/api/login",
+                        "/api/signout",
+                        "/error/**",
+                        "/api/model/**",
+                        "/api/editor/stencilset").permitAll()
                 // 阻止POST预检请求
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 // 除上面的接口都需要验证
@@ -87,7 +91,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 "/swagger-resources/configuration/ui",//用来获取支持的动作
                 "/swagger-resources",//用来获取api-docs的URI
                 "/swagger-resources/configuration/security",//安全选项
-                "/swagger-ui.html");
+                "/swagger-ui.html",
+                "/static/**",      //静态资源
+                "classpath:/static/");
     }
 
     @Bean

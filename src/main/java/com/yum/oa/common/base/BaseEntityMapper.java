@@ -18,4 +18,6 @@ public interface BaseEntityMapper<E extends BaseEntity> {
     int updateByPrimaryKeySelective(E entity);
 
     List<E> findList();
+
+    int deleteById(Long id);
 }

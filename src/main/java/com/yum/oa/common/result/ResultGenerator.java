@@ -13,20 +13,20 @@ public class ResultGenerator {
         return new ResultBean<>(ResultCode.OK.getCode(), ResultCode.OK.getMsg(), data);
     }
 
-    public static ResultBean<?> failed() {
+    public static <T> ResultBean<T> failed() {
         ResultCode resultCode = ResultCode.EXPECTATION_FAILED;
-        return new ResultBean<>(resultCode.getCode(), resultCode.getMsg(), null);
+        return new ResultBean<>(resultCode.getCode(), resultCode.getMsg(),  null);
     }
 
-    public static ResultBean<?> failed(String msg) {
+    public static <T> ResultBean<T> failed(String msg) {
         return new ResultBean<>(ResultCode.EXPECTATION_FAILED.getCode(), msg, null);
     }
 
-    public static ResultBean<?> failed(ResultCode code) {
+    public static <T> ResultBean<T> failed(ResultCode code) {
         return new ResultBean<>(code.getCode(), code.getMsg(), null);
     }
 
-    public static ResultBean<?> failed(ResultCode code, String msg) {
+    public static <T> ResultBean<T> failed(ResultCode code, String msg) {
         return new ResultBean<>(code.getCode(), msg, null);
     }
 

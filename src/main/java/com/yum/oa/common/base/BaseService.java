@@ -2,6 +2,8 @@ package com.yum.oa.common.base;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -11,18 +13,18 @@ import java.util.List;
  * @version: 0.0.1
  **/
 public abstract class BaseService<T extends BaseEntityMapper<E>, E extends BaseEntity> {
-    private final T t;
+    private final T mapper;
 
-    protected BaseService(T t) {
-        this.t = t;
+    protected BaseService(T mapper) {
+        this.mapper = mapper;
     }
 
     protected E getOne(Long id) {
-        return t.selectByPrimaryKey(id);
+        return mapper.selectByPrimaryKey(id);
     }
 
     protected List<E> findList() {
-        return t.findList();
+        return mapper.findList();
     }
 
     protected PageInfo<E> findPageList() {
@@ -35,10 +37,16 @@ public abstract class BaseService<T extends BaseEntityMapper<E>, E extends BaseE
             return 0;
         }
         if (entity.getId() == null) {
-            return t.insertSelective(entity);
+            entity.setCreatedDate(new Date());
+            return mapper.insertSelective(entity);
         } else {
-            return t.updateByPrimaryKeySelective(entity);
+            entity.setModifiedDate(new Date());
+            return mapper.updateByPrimaryKeySelective(entity);
         }
+    }
+
+    protected int deleteById(Long id) {
+        return mapper.deleteById(id);
     }
 
 }

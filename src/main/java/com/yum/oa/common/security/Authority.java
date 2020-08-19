@@ -7,7 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
  * @description
  * @author: gaoyu
  * @create: 2020-08-15
- * @version: v2.0
+ * @version: 0.0.1
  **/
 public final class Authority implements GrantedAuthority {
     private String authority;

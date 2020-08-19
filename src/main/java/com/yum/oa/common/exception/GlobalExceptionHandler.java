@@ -3,6 +3,7 @@ package com.yum.oa.common.exception;
 import com.yum.oa.common.result.ResultBean;
 import com.yum.oa.common.result.ResultCode;
 import com.yum.oa.common.result.ResultGenerator;
+import org.activiti.engine.ActivitiException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -31,6 +32,12 @@ public class GlobalExceptionHandler {
     public ResultBean<?> MethodArgumentNotValidExceptionHandler(MethodArgumentNotValidException e) {
         logger.error("请求参数验证异常，原因：", e);
         return ResultGenerator.failed(ResultCode.BAD_REQUEST, e.getBindingResult().getAllErrors().get(0).getDefaultMessage());
+    }
+
+    @ExceptionHandler(ActivitiException.class)
+    public ResultBean<?> MethodArgumentNotValidExceptionHandler(ActivitiException e) {
+        logger.error("工作流操作异常，原因：", e);
+        return ResultGenerator.failed(ResultCode.INTERNAL_ERROR, e.getMessage());
     }
 
 }
