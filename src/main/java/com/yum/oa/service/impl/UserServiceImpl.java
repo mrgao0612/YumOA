@@ -53,8 +53,8 @@ public class UserServiceImpl extends BaseService<UserEntityMapper, UserEntity> i
     }
 
     @Override
-    public ResultBean<PageInfo<UserEntity>> findPageList(Object param) {
-        return ResultGenerator.success(super.findPageList());
+    public ResultBean<PageInfo<UserEntity>> findPageInfo(UserEntity param) {
+        return ResultGenerator.success(super.findPageList(param));
     }
 
     @Override

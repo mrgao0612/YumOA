@@ -17,7 +17,7 @@ public interface UserService {
 
     ResultBean<UserEntity> saveUser(UserEntity userEntity);
 
-    ResultBean<PageInfo<UserEntity>> findPageList(Object param);
+    ResultBean<PageInfo<UserEntity>> findPageInfo(UserEntity param);
 
     UserEntity getUserInfoByMobile(String mobile);
 

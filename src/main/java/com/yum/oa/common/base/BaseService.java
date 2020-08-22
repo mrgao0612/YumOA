@@ -23,13 +23,13 @@ public abstract class BaseService<T extends BaseEntityMapper<E>, E extends BaseE
         return mapper.selectByPrimaryKey(id);
     }
 
-    protected List<E> findList() {
-        return mapper.findList();
+    protected List<E> findList(E entity) {
+        return mapper.findList(entity);
     }
 
-    protected PageInfo<E> findPageList() {
-        PageHelper.startPage(1, 10);
-        return new PageInfo<>(this.findList());
+    protected PageInfo<E> findPageList(E entity) {
+        PageHelper.startPage(entity.getPageNum(), entity.getPageSize());
+        return PageInfo.of(this.findList(entity));
     }
 
     protected int save(E entity) {

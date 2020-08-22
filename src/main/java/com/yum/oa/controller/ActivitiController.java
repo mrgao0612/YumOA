@@ -103,6 +103,9 @@ public class ActivitiController {
             return ResultGenerator.failed("模型不存在");
         }
         repositoryService.deleteModel(id);
+        if (StringUtils.isNotBlank(model.getDeploymentId())) {
+            repositoryService.deleteDeployment(model.getDeploymentId(), true);
+        }
         return ResultGenerator.success("删除成功");
     }
 
@@ -129,6 +132,7 @@ public class ActivitiController {
             if (model.getProcesses().size() == 0) {
                 return ResultGenerator.failed("流程定义不符要求，请至少设计一条主线流程");
             }
+
             byte[] bpmnBytes = new BpmnXMLConverter().convertToXML(model);
             //发布流程
             String processName = modelData.getKey() + ".bpmn20.xml";

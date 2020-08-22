@@ -31,16 +31,20 @@ public class UserController {
         return userService.getUserInfoById(id);
     }
 
-    @PostMapping("insert")
+    @PostMapping("save")
     @ApiOperation("新增用户")
     public ResultBean<UserEntity> insert(@Valid @RequestBody UserEntity userEntity) {
+        userEntity.setUserCode(10002);
         return userService.saveUser(userEntity);
     }
 
     @GetMapping("list")
     @ApiOperation("用户列表")
-    public ResultBean<PageInfo<UserEntity>> list(Object param) {
-        return userService.findPageList(param);
+    public ResultBean<PageInfo<UserEntity>> list(@RequestParam Integer pageSize, @RequestParam Integer pageNum) {
+        UserEntity param = new UserEntity();
+        param.setPageNum(pageNum);
+        param.setPageSize(pageSize);
+        return userService.findPageInfo(param);
     }
 
     @ApiOperation("删除用户")

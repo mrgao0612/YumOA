@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yum.oa.mapper.LeaveEntityMapper">
+  <resultMap id="BaseResultMap" type="com.yum.oa.model.entity.LeaveEntity">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="leave_code" jdbcType="INTEGER" property="leaveCode" />
+    <result column="leave_type" jdbcType="BIT" property="leaveType" />
+    <result column="reason" jdbcType="VARCHAR" property="reason" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="total_hours" jdbcType="INTEGER" property="totalHours" />
+    <result column="owner_id" jdbcType="BIGINT" property="ownerId" />
+    <result column="process_id" jdbcType="VARCHAR" property="processId" />
+    <result column="approve_status" jdbcType="BIT" property="approveStatus" />
+    <result column="reject_reason" jdbcType="VARCHAR" property="rejectReason" />
+    <result column="approver_id" jdbcType="BIGINT" property="approverId" />
+    <result column="creator_id" jdbcType="BIGINT" property="creatorId" />
+    <result column="created_date" jdbcType="TIMESTAMP" property="createdDate" />
+    <result column="modifier_id" jdbcType="BIGINT" property="modifierId" />
+    <result column="modified_date" jdbcType="TIMESTAMP" property="modifiedDate" />
+    <result column="is_delete" jdbcType="BIT" property="isDelete" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, leave_code,leave_type, reason, start_time, end_time, total_hours, owner_id, process_id, approve_status,
+    reject_reason, approver_id, creator_id, created_date, modifier_id, modified_date, is_delete
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from yum_leave
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <insert id="insertSelective" parameterType="com.yum.oa.model.entity.LeaveEntity">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into yum_leave
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="leaveCode != null">
+        leave_code,
+      </if>
+      <if test="leaveType != null">
+        leave_type,
+      </if>
+      <if test="reason != null">
+        reason,
+      </if>
+      <if test="startTime != null">
+        start_time,
+      </if>
+      <if test="endTime != null">
+        end_time,
+      </if>
+      <if test="totalHours != null">
+        total_hours,
+      </if>
+      <if test="ownerId != null">
+        owner_id,
+      </if>
+      <if test="processId != null">
+        process_id,
+      </if>
+      <if test="approveStatus != null">
+        approve_status,
+      </if>
+      <if test="rejectReason != null">
+        reject_reason,
+      </if>
+      <if test="approverId != null">
+        approver_id,
+      </if>
+      <if test="creatorId != null">
+        creator_id,
+      </if>
+      <if test="createdDate != null">
+        created_date,
+      </if>
+      <if test="modifierId != null">
+        modifier_id,
+      </if>
+      <if test="modifiedDate != null">
+        modified_date,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="leaveCode != null">
+        #{leaveCode,jdbcType=INTEGER},
+      </if>
+      <if test="leaveType != null">
+        #{leaveType,jdbcType=BIT},
+      </if>
+      <if test="reason != null">
+        #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="totalHours != null">
+        #{totalHours,jdbcType=INTEGER},
+      </if>
+      <if test="ownerId != null">
+        #{ownerId,jdbcType=BIGINT},
+      </if>
+      <if test="processId != null">
+        #{processId,jdbcType=VARCHAR},
+      </if>
+      <if test="approveStatus != null">
+        #{approveStatus,jdbcType=BIT},
+      </if>
+      <if test="rejectReason != null">
+        #{rejectReason,jdbcType=VARCHAR},
+      </if>
+      <if test="approverId != null">
+        #{approverId,jdbcType=BIGINT},
+      </if>
+      <if test="creatorId != null">
+        #{creatorId,jdbcType=BIGINT},
+      </if>
+      <if test="createdDate != null">
+        #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifierId != null">
+        #{modifierId,jdbcType=BIGINT},
+      </if>
+      <if test="modifiedDate != null">
+        #{modifiedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yum.oa.model.entity.LeaveEntity">
+    update yum_leave
+    <set>
+      <if test="leaveCode != null">
+        leave_code = #{leaveCode,jdbcType=INTEGER},
+      </if>
+      <if test="leaveType != null">
+        leave_type = #{leaveType,jdbcType=BIT},
+      </if>
+      <if test="reason != null">
+        reason = #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        startTime = #{start_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        endTime = #{end_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="totalHours != null">
+        total_hours = #{totalHours,jdbcType=INTEGER},
+      </if>
+      <if test="ownerId != null">
+        owner_id = #{ownerId,jdbcType=BIGINT},
+      </if>
+      <if test="processId != null">
+        process_id = #{processId,jdbcType=VARCHAR},
+      </if>
+      <if test="approveStatus != null">
+        approve_status = #{approveStatus,jdbcType=BIT},
+      </if>
+      <if test="rejectReason != null">
+        reject_reason = #{rejectReason,jdbcType=VARCHAR},
+      </if>
+      <if test="approverId != null">
+        approver_id = #{approverId,jdbcType=BIGINT},
+      </if>
+      <if test="creatorId != null">
+        creator_id = #{creatorId,jdbcType=BIGINT},
+      </if>
+      <if test="createdDate != null">
+        created_date = #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifierId != null">
+        modifier_id = #{modifierId,jdbcType=BIGINT},
+      </if>
+      <if test="modifiedDate != null">
+        modified_date = #{modifiedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <select id="findList" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from yum_leave
+    where owner_id = #{ownerId}
+    order by id desc
+  </select>
+
+  <select id="findPendingApproveList" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from yum_leave
+    where approver_id = #{approverId}
+    and process_id in
+    <foreach collection="processIds" item="processId" open="(" close=")" separator=",">
+      #{processId}
+    </foreach>
+    order by id desc
+  </select>
+
+  <update id="updateApproveStatus">
+    update yum_leave set
+    approve_status = #{approveStatus}
+    where id = #{id}
+  </update>
+
+  <delete id="deleteById">
+    delete from yum_leave where id = #{id}
+  </delete>
+</mapper>

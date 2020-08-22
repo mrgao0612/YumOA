@@ -8,14 +8,14 @@ import java.util.Date;
  * @create: 2020-08-07
  * @version: 0.0.1
  **/
-public class BaseEntity {
+public class BaseEntity extends BasePageVars {
     private Long id;
     private Long creatorId;
     private Date createdDate;
     private Long modifierId;
     private Date modifiedDate;
     /** 是否删除0:正常,1:已删除 */
-    private Integer isDelete;
+    private Integer isDelete = 0;
 
     public Long getId() {
         return id;
