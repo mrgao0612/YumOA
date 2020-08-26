@@ -151,8 +151,8 @@
 
         <dependency>
             <groupId>io.netty</groupId>
-            <artifactId>netty-codec-http</artifactId>
-            <version>4.1.24.Final</version>
+            <artifactId>netty-all</artifactId>
+            <version>4.1.36.Final</version>
         </dependency>
         <dependency>
             <groupId>com.google.protobuf</groupId>
