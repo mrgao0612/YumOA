@@ -1,11 +1,6 @@
 package com.yum.oa.common.im.server;
 
-import com.yum.oa.common.im.protocol.MessageBase;
 import io.netty.channel.Channel;
-import io.netty.channel.ChannelId;
-import io.netty.channel.group.ChannelGroup;
-import io.netty.channel.group.DefaultChannelGroup;
-import io.netty.util.concurrent.GlobalEventExecutor;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
