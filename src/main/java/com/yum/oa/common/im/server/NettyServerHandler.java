@@ -1,6 +1,5 @@
 package com.yum.oa.common.im.server;
 
-import com.alibaba.fastjson.JSONObject;
 import com.yum.oa.common.im.protocol.MessageBase;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandler;
@@ -32,28 +31,18 @@ public class NettyServerHandler extends SimpleChannelInboundHandler<MessageBase.
     public void channelRead0(ChannelHandlerContext ctx, MessageBase.Message message) {
         taskExecutor.execute(() -> {
             switch (message.getCmd()) {
-                case NORMAL:
-                    log.info("收到客户端发来的业务消息，{}", message.toString());
-                    String receiverId = JSONObject.parseObject(message.getContent()).get("receiverId").toString();
+                case MESSAGE:
+                    log.info("收到客户端发来的消息，{}", message.toString());
+                    String receiverId = message.getReceiverId();
                     Channel channel = ChannelSupervise.getChannel(receiverId);
                     channel.writeAndFlush(message);
                     break;
-                case HEARTBEAT_REQUEST:
-                    log.info("收到客户端发来的心跳消息，{}", message.toString());
-                    // 回应pong
-                    ctx.writeAndFlush(MessageBase.Message
-                            .newBuilder()
-                            .setCmd(MessageBase.Message.CommandType.HEARTBEAT_RESPONSE)
-                            .setRequestId(ctx.channel().id().asShortText())
-                            .setContent("pong").build());
-                    break;
                 case OPEN:
                     log.info("收到客户端登录成功消息，{}", message.toString());
-                    String userId = message.getRequestId();
+                    String userId = message.getSenderId();
                     ChannelSupervise.addChannel(userId, ctx.channel());
                     break;
                 default:
-                    log.warn("消息格式不符合要求");
                     break;
             }
         });

@@ -5,13 +5,14 @@ option java_package = "com.yum.oa.common.im.protocol";
 option java_outer_classname = "MessageBase";
 
 message Message {
-  string requestId = 1;
-  CommandType cmd = 2;
-  string content = 3;
+  string senderId = 1;
+  string senderAvatar = 2;
+  string receiverId = 3;
+  CommandType cmd = 4;
+  string content = 5;
   enum CommandType {
-    NORMAL = 0; // 常规业务消息
-    HEARTBEAT_REQUEST = 1;  // 客户端心跳消息
-    HEARTBEAT_RESPONSE = 2; // 服务端心跳消息
-	  OPEN = 3;	//websocket连接成功
+    MESSAGE = 0; // 消息
+    NOTICE = 1;  // 通知
+	  OPEN = 2;	//websocket连接成功
   }
 }

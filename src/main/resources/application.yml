@@ -40,7 +40,7 @@ spring:
     check-process-definitions: false #自动检查、部署流程定义文件
     process-definition-location-prefix: classpath:/processes/
   mvc:
-    static-path-pattern: /**
+    static-path-pattern: /static/**
   resources:
     static-locations: classpath:/static/
 

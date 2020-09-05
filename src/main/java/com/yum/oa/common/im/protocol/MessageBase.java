@@ -19,30 +19,50 @@ public final class MessageBase {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>string requestId = 1;</code>
+     * <code>string senderId = 1;</code>
      */
-    String getRequestId();
+    String getSenderId();
     /**
-     * <code>string requestId = 1;</code>
+     * <code>string senderId = 1;</code>
      */
     com.google.protobuf.ByteString
-        getRequestIdBytes();
+        getSenderIdBytes();
 
     /**
-     * <code>.Message.CommandType cmd = 2;</code>
+     * <code>string senderAvatar = 2;</code>
+     */
+    String getSenderAvatar();
+    /**
+     * <code>string senderAvatar = 2;</code>
+     */
+    com.google.protobuf.ByteString
+        getSenderAvatarBytes();
+
+    /**
+     * <code>string receiverId = 3;</code>
+     */
+    String getReceiverId();
+    /**
+     * <code>string receiverId = 3;</code>
+     */
+    com.google.protobuf.ByteString
+        getReceiverIdBytes();
+
+    /**
+     * <code>.Message.CommandType cmd = 4;</code>
      */
     int getCmdValue();
     /**
-     * <code>.Message.CommandType cmd = 2;</code>
+     * <code>.Message.CommandType cmd = 4;</code>
      */
     Message.CommandType getCmd();
 
     /**
-     * <code>string content = 3;</code>
+     * <code>string content = 5;</code>
      */
     String getContent();
     /**
-     * <code>string content = 3;</code>
+     * <code>string content = 5;</code>
      */
     com.google.protobuf.ByteString
         getContentBytes();
@@ -60,7 +80,9 @@ public final class MessageBase {
       super(builder);
     }
     private Message() {
-      requestId_ = "";
+      senderId_ = "";
+      senderAvatar_ = "";
+      receiverId_ = "";
       cmd_ = 0;
       content_ = "";
     }
@@ -96,16 +118,28 @@ public final class MessageBase {
             case 10: {
               String s = input.readStringRequireUtf8();
 
-              requestId_ = s;
+              senderId_ = s;
               break;
             }
-            case 16: {
+            case 18: {
+              String s = input.readStringRequireUtf8();
+
+              senderAvatar_ = s;
+              break;
+            }
+            case 26: {
+              String s = input.readStringRequireUtf8();
+
+              receiverId_ = s;
+              break;
+            }
+            case 32: {
               int rawValue = input.readEnum();
 
               cmd_ = rawValue;
               break;
             }
-            case 26: {
+            case 42: {
               String s = input.readStringRequireUtf8();
 
               content_ = s;
@@ -142,71 +176,55 @@ public final class MessageBase {
         implements com.google.protobuf.ProtocolMessageEnum {
       /**
        * <pre>
-       * 常规业务消息
+       * 消息
        * </pre>
        *
-       * <code>NORMAL = 0;</code>
+       * <code>MESSAGE = 0;</code>
        */
-      NORMAL(0),
+      MESSAGE(0),
       /**
        * <pre>
-       * 客户端心跳消息
+       * 通知
        * </pre>
        *
-       * <code>HEARTBEAT_REQUEST = 1;</code>
+       * <code>NOTICE = 1;</code>
        */
-      HEARTBEAT_REQUEST(1),
-      /**
-       * <pre>
-       * 服务端心跳消息
-       * </pre>
-       *
-       * <code>HEARTBEAT_RESPONSE = 2;</code>
-       */
-      HEARTBEAT_RESPONSE(2),
+      NOTICE(1),
       /**
        * <pre>
        *websocket连接成功
        * </pre>
        *
-       * <code>OPEN = 3;</code>
+       * <code>OPEN = 2;</code>
        */
-      OPEN(3),
+      OPEN(2),
       UNRECOGNIZED(-1),
       ;
 
       /**
        * <pre>
-       * 常规业务消息
+       * 消息
        * </pre>
        *
-       * <code>NORMAL = 0;</code>
+       * <code>MESSAGE = 0;</code>
        */
-      public static final int NORMAL_VALUE = 0;
+      public static final int MESSAGE_VALUE = 0;
       /**
        * <pre>
-       * 客户端心跳消息
+       * 通知
        * </pre>
        *
-       * <code>HEARTBEAT_REQUEST = 1;</code>
+       * <code>NOTICE = 1;</code>
        */
-      public static final int HEARTBEAT_REQUEST_VALUE = 1;
-      /**
-       * <pre>
-       * 服务端心跳消息
-       * </pre>
-       *
-       * <code>HEARTBEAT_RESPONSE = 2;</code>
-       */
-      public static final int HEARTBEAT_RESPONSE_VALUE = 2;
+      public static final int NOTICE_VALUE = 1;
       /**
        * <pre>
        *websocket连接成功
        * </pre>
        *
-       * <code>OPEN = 3;</code>
+       * <code>OPEN = 2;</code>
        */
-      public static final int OPEN_VALUE = 3;
+      public static final int OPEN_VALUE = 2;
 
 
       public final int getNumber() {
@@ -227,10 +245,9 @@ public final class MessageBase {
 
       public static CommandType forNumber(int value) {
         switch (value) {
-          case 0: return NORMAL;
-          case 1: return HEARTBEAT_REQUEST;
-          case 2: return HEARTBEAT_RESPONSE;
-          case 3: return OPEN;
+          case 0: return MESSAGE;
+          case 1: return NOTICE;
+          case 2: return OPEN;
           default: return null;
         }
       }
@@ -283,60 +300,128 @@ public final class MessageBase {
       // @@protoc_insertion_point(enum_scope:Message.CommandType)
     }
 
-    public static final int REQUESTID_FIELD_NUMBER = 1;
-    private volatile Object requestId_;
+    public static final int SENDERID_FIELD_NUMBER = 1;
+    private volatile Object senderId_;
     /**
-     * <code>string requestId = 1;</code>
+     * <code>string senderId = 1;</code>
      */
-    public String getRequestId() {
-      Object ref = requestId_;
+    public String getSenderId() {
+      Object ref = senderId_;
       if (ref instanceof String) {
         return (String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         String s = bs.toStringUtf8();
-        requestId_ = s;
+        senderId_ = s;
         return s;
       }
     }
     /**
-     * <code>string requestId = 1;</code>
+     * <code>string senderId = 1;</code>
      */
     public com.google.protobuf.ByteString
-        getRequestIdBytes() {
-      Object ref = requestId_;
+        getSenderIdBytes() {
+      Object ref = senderId_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (String) ref);
-        requestId_ = b;
+        senderId_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
     }
 
-    public static final int CMD_FIELD_NUMBER = 2;
+    public static final int SENDERAVATAR_FIELD_NUMBER = 2;
+    private volatile Object senderAvatar_;
+    /**
+     * <code>string senderAvatar = 2;</code>
+     */
+    public String getSenderAvatar() {
+      Object ref = senderAvatar_;
+      if (ref instanceof String) {
+        return (String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        String s = bs.toStringUtf8();
+        senderAvatar_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string senderAvatar = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getSenderAvatarBytes() {
+      Object ref = senderAvatar_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (String) ref);
+        senderAvatar_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int RECEIVERID_FIELD_NUMBER = 3;
+    private volatile Object receiverId_;
+    /**
+     * <code>string receiverId = 3;</code>
+     */
+    public String getReceiverId() {
+      Object ref = receiverId_;
+      if (ref instanceof String) {
+        return (String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        String s = bs.toStringUtf8();
+        receiverId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string receiverId = 3;</code>
+     */
+    public com.google.protobuf.ByteString
+        getReceiverIdBytes() {
+      Object ref = receiverId_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (String) ref);
+        receiverId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int CMD_FIELD_NUMBER = 4;
     private int cmd_;
     /**
-     * <code>.Message.CommandType cmd = 2;</code>
+     * <code>.Message.CommandType cmd = 4;</code>
      */
     public int getCmdValue() {
       return cmd_;
     }
     /**
-     * <code>.Message.CommandType cmd = 2;</code>
+     * <code>.Message.CommandType cmd = 4;</code>
      */
     public CommandType getCmd() {
       CommandType result = CommandType.valueOf(cmd_);
       return result == null ? CommandType.UNRECOGNIZED : result;
     }
 
-    public static final int CONTENT_FIELD_NUMBER = 3;
+    public static final int CONTENT_FIELD_NUMBER = 5;
     private volatile Object content_;
     /**
-     * <code>string content = 3;</code>
+     * <code>string content = 5;</code>
      */
     public String getContent() {
       Object ref = content_;
@@ -351,7 +436,7 @@ public final class MessageBase {
       }
     }
     /**
-     * <code>string content = 3;</code>
+     * <code>string content = 5;</code>
      */
     public com.google.protobuf.ByteString
         getContentBytes() {
@@ -379,14 +464,20 @@ public final class MessageBase {
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (!getRequestIdBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, requestId_);
+      if (!getSenderIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, senderId_);
       }
-      if (cmd_ != CommandType.NORMAL.getNumber()) {
-        output.writeEnum(2, cmd_);
+      if (!getSenderAvatarBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, senderAvatar_);
+      }
+      if (!getReceiverIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, receiverId_);
+      }
+      if (cmd_ != CommandType.MESSAGE.getNumber()) {
+        output.writeEnum(4, cmd_);
       }
       if (!getContentBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, content_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 5, content_);
       }
       unknownFields.writeTo(output);
     }
@@ -396,15 +487,21 @@ public final class MessageBase {
       if (size != -1) return size;
 
       size = 0;
-      if (!getRequestIdBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, requestId_);
+      if (!getSenderIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, senderId_);
       }
-      if (cmd_ != CommandType.NORMAL.getNumber()) {
+      if (!getSenderAvatarBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, senderAvatar_);
+      }
+      if (!getReceiverIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, receiverId_);
+      }
+      if (cmd_ != CommandType.MESSAGE.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeEnumSize(2, cmd_);
+          .computeEnumSize(4, cmd_);
       }
       if (!getContentBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, content_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, content_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -422,8 +519,12 @@ public final class MessageBase {
       Message other = (Message) obj;
 
       boolean result = true;
-      result = result && getRequestId()
-          .equals(other.getRequestId());
+      result = result && getSenderId()
+          .equals(other.getSenderId());
+      result = result && getSenderAvatar()
+          .equals(other.getSenderAvatar());
+      result = result && getReceiverId()
+          .equals(other.getReceiverId());
       result = result && cmd_ == other.cmd_;
       result = result && getContent()
           .equals(other.getContent());
@@ -438,8 +539,12 @@ public final class MessageBase {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + REQUESTID_FIELD_NUMBER;
-      hash = (53 * hash) + getRequestId().hashCode();
+      hash = (37 * hash) + SENDERID_FIELD_NUMBER;
+      hash = (53 * hash) + getSenderId().hashCode();
+      hash = (37 * hash) + SENDERAVATAR_FIELD_NUMBER;
+      hash = (53 * hash) + getSenderAvatar().hashCode();
+      hash = (37 * hash) + RECEIVERID_FIELD_NUMBER;
+      hash = (53 * hash) + getReceiverId().hashCode();
       hash = (37 * hash) + CMD_FIELD_NUMBER;
       hash = (53 * hash) + cmd_;
       hash = (37 * hash) + CONTENT_FIELD_NUMBER;
@@ -573,7 +678,11 @@ public final class MessageBase {
       }
       public Builder clear() {
         super.clear();
-        requestId_ = "";
+        senderId_ = "";
+
+        senderAvatar_ = "";
+
+        receiverId_ = "";
 
         cmd_ = 0;
 
@@ -601,7 +710,9 @@ public final class MessageBase {
 
       public Message buildPartial() {
         Message result = new Message(this);
-        result.requestId_ = requestId_;
+        result.senderId_ = senderId_;
+        result.senderAvatar_ = senderAvatar_;
+        result.receiverId_ = receiverId_;
         result.cmd_ = cmd_;
         result.content_ = content_;
         onBuilt();
@@ -645,8 +756,16 @@ public final class MessageBase {
 
       public Builder mergeFrom(Message other) {
         if (other == Message.getDefaultInstance()) return this;
-        if (!other.getRequestId().isEmpty()) {
-          requestId_ = other.requestId_;
+        if (!other.getSenderId().isEmpty()) {
+          senderId_ = other.senderId_;
+          onChanged();
+        }
+        if (!other.getSenderAvatar().isEmpty()) {
+          senderAvatar_ = other.senderAvatar_;
+          onChanged();
+        }
+        if (!other.getReceiverId().isEmpty()) {
+          receiverId_ = other.receiverId_;
           onChanged();
         }
         if (other.cmd_ != 0) {
@@ -683,84 +802,222 @@ public final class MessageBase {
         return this;
       }
 
-      private Object requestId_ = "";
+      private Object senderId_ = "";
       /**
-       * <code>string requestId = 1;</code>
+       * <code>string senderId = 1;</code>
        */
-      public String getRequestId() {
-        Object ref = requestId_;
+      public String getSenderId() {
+        Object ref = senderId_;
         if (!(ref instanceof String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           String s = bs.toStringUtf8();
-          requestId_ = s;
+          senderId_ = s;
           return s;
         } else {
           return (String) ref;
         }
       }
       /**
-       * <code>string requestId = 1;</code>
+       * <code>string senderId = 1;</code>
        */
       public com.google.protobuf.ByteString
-          getRequestIdBytes() {
-        Object ref = requestId_;
+          getSenderIdBytes() {
+        Object ref = senderId_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (String) ref);
-          requestId_ = b;
+          senderId_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
       /**
-       * <code>string requestId = 1;</code>
+       * <code>string senderId = 1;</code>
        */
-      public Builder setRequestId(
+      public Builder setSenderId(
           String value) {
         if (value == null) {
     throw new NullPointerException();
   }
   
-        requestId_ = value;
+        senderId_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>string requestId = 1;</code>
+       * <code>string senderId = 1;</code>
        */
-      public Builder clearRequestId() {
+      public Builder clearSenderId() {
         
-        requestId_ = getDefaultInstance().getRequestId();
+        senderId_ = getDefaultInstance().getSenderId();
         onChanged();
         return this;
       }
       /**
-       * <code>string requestId = 1;</code>
+       * <code>string senderId = 1;</code>
        */
-      public Builder setRequestIdBytes(
+      public Builder setSenderIdBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
         
-        requestId_ = value;
+        senderId_ = value;
+        onChanged();
+        return this;
+      }
+
+      private Object senderAvatar_ = "";
+      /**
+       * <code>string senderAvatar = 2;</code>
+       */
+      public String getSenderAvatar() {
+        Object ref = senderAvatar_;
+        if (!(ref instanceof String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          String s = bs.toStringUtf8();
+          senderAvatar_ = s;
+          return s;
+        } else {
+          return (String) ref;
+        }
+      }
+      /**
+       * <code>string senderAvatar = 2;</code>
+       */
+      public com.google.protobuf.ByteString
+          getSenderAvatarBytes() {
+        Object ref = senderAvatar_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (String) ref);
+          senderAvatar_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string senderAvatar = 2;</code>
+       */
+      public Builder setSenderAvatar(
+          String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        senderAvatar_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string senderAvatar = 2;</code>
+       */
+      public Builder clearSenderAvatar() {
+        
+        senderAvatar_ = getDefaultInstance().getSenderAvatar();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string senderAvatar = 2;</code>
+       */
+      public Builder setSenderAvatarBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        senderAvatar_ = value;
+        onChanged();
+        return this;
+      }
+
+      private Object receiverId_ = "";
+      /**
+       * <code>string receiverId = 3;</code>
+       */
+      public String getReceiverId() {
+        Object ref = receiverId_;
+        if (!(ref instanceof String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          String s = bs.toStringUtf8();
+          receiverId_ = s;
+          return s;
+        } else {
+          return (String) ref;
+        }
+      }
+      /**
+       * <code>string receiverId = 3;</code>
+       */
+      public com.google.protobuf.ByteString
+          getReceiverIdBytes() {
+        Object ref = receiverId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (String) ref);
+          receiverId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string receiverId = 3;</code>
+       */
+      public Builder setReceiverId(
+          String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        receiverId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string receiverId = 3;</code>
+       */
+      public Builder clearReceiverId() {
+        
+        receiverId_ = getDefaultInstance().getReceiverId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string receiverId = 3;</code>
+       */
+      public Builder setReceiverIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        receiverId_ = value;
         onChanged();
         return this;
       }
 
       private int cmd_ = 0;
       /**
-       * <code>.Message.CommandType cmd = 2;</code>
+       * <code>.Message.CommandType cmd = 4;</code>
        */
       public int getCmdValue() {
         return cmd_;
       }
       /**
-       * <code>.Message.CommandType cmd = 2;</code>
+       * <code>.Message.CommandType cmd = 4;</code>
        */
       public Builder setCmdValue(int value) {
         cmd_ = value;
@@ -768,14 +1025,14 @@ public final class MessageBase {
         return this;
       }
       /**
-       * <code>.Message.CommandType cmd = 2;</code>
+       * <code>.Message.CommandType cmd = 4;</code>
        */
       public CommandType getCmd() {
         CommandType result = CommandType.valueOf(cmd_);
         return result == null ? CommandType.UNRECOGNIZED : result;
       }
       /**
-       * <code>.Message.CommandType cmd = 2;</code>
+       * <code>.Message.CommandType cmd = 4;</code>
        */
       public Builder setCmd(CommandType value) {
         if (value == null) {
@@ -787,7 +1044,7 @@ public final class MessageBase {
         return this;
       }
       /**
-       * <code>.Message.CommandType cmd = 2;</code>
+       * <code>.Message.CommandType cmd = 4;</code>
        */
       public Builder clearCmd() {
         
@@ -798,7 +1055,7 @@ public final class MessageBase {
 
       private Object content_ = "";
       /**
-       * <code>string content = 3;</code>
+       * <code>string content = 5;</code>
        */
       public String getContent() {
         Object ref = content_;
@@ -813,7 +1070,7 @@ public final class MessageBase {
         }
       }
       /**
-       * <code>string content = 3;</code>
+       * <code>string content = 5;</code>
        */
       public com.google.protobuf.ByteString
           getContentBytes() {
@@ -829,7 +1086,7 @@ public final class MessageBase {
         }
       }
       /**
-       * <code>string content = 3;</code>
+       * <code>string content = 5;</code>
        */
       public Builder setContent(
           String value) {
@@ -842,7 +1099,7 @@ public final class MessageBase {
         return this;
       }
       /**
-       * <code>string content = 3;</code>
+       * <code>string content = 5;</code>
        */
       public Builder clearContent() {
         
@@ -851,7 +1108,7 @@ public final class MessageBase {
         return this;
       }
       /**
-       * <code>string content = 3;</code>
+       * <code>string content = 5;</code>
        */
       public Builder setContentBytes(
           com.google.protobuf.ByteString value) {
@@ -927,12 +1184,13 @@ public final class MessageBase {
       descriptor;
   static {
     String[] descriptorData = {
-      "\n\rmessage.proto\"\244\001\n\007Message\022\021\n\trequestId" +
-      "\030\001 \001(\t\022!\n\003cmd\030\002 \001(\0162\024.Message.CommandTyp" +
-      "e\022\017\n\007content\030\003 \001(\t\"R\n\013CommandType\022\n\n\006NOR" +
-      "MAL\020\000\022\025\n\021HEARTBEAT_REQUEST\020\001\022\026\n\022HEARTBEA" +
-      "T_RESPONSE\020\002\022\010\n\004OPEN\020\003B,\n\035com.yum.oa.com" +
-      "mon.im.protocolB\013MessageBaseb\006proto3"
+      "\n\rmessage.proto\"\253\001\n\007Message\022\020\n\010senderId\030" +
+      "\001 \001(\t\022\024\n\014senderAvatar\030\002 \001(\t\022\022\n\nreceiverI" +
+      "d\030\003 \001(\t\022!\n\003cmd\030\004 \001(\0162\024.Message.CommandTy" +
+      "pe\022\017\n\007content\030\005 \001(\t\"0\n\013CommandType\022\013\n\007ME" +
+      "SSAGE\020\000\022\n\n\006NOTICE\020\001\022\010\n\004OPEN\020\002B,\n\035com.yum" +
+      ".oa.common.im.protocolB\013MessageBaseb\006pro" +
+      "to3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -951,7 +1209,7 @@ public final class MessageBase {
     internal_static_Message_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_Message_descriptor,
-        new String[] { "RequestId", "Cmd", "Content", });
+        new String[] { "SenderId", "SenderAvatar", "ReceiverId", "Cmd", "Content", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)
